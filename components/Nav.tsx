@@ -42,6 +42,19 @@ const NAV_LINKS = [
     ],
   },
   {
+    label: "Committees and Parliamentary Network",
+    href: "/committees-&-parliamentary-network",
+    submenu: [
+      { label: "Committees", href: "/committees-&-parliamentary-network/committees" },
+      { label: "Committee Reports (searchable archive by session/date)", href: "/committees-&-parliamentary-network/committee-reports" },
+      { label: "Parliamentary Network ", href: "/committees-&-parliamentary-network/parliamentary-network" },
+      {
+        label: "Policy Debrief (briefing series)",
+        href: "/resources/policy-debrief",
+      },
+    ],
+  },
+  {
     label: "Members",
     href: "/members",
     submenu: [
@@ -120,7 +133,7 @@ export default function Navbar() {
             >
               <Link
                 href={link.href}
-                className="flex items-center gap-1 text-[13px] text-[#c9c2bd] transition-colors hover:text-white xl:text-[15px]"
+                className="flex items-center gap-1 text-[12px] text-[#c9c2bd] transition-colors hover:text-white xl:text-[13px]"
               >
                 {link.label}
                 {link.submenu && (
