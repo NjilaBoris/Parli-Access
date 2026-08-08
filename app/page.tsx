@@ -1,12 +1,13 @@
+import HeroSlider from "@/components/Hero";
+import NewsHomepage from "@/components/HeroArticle";
 import React from "react";
 
 const Home = () => {
   return (
-    <div>
-      <h1 className="text-4xl font-bold text-center mt-10">
-        Welcome to Parli Access
-      </h1>
-    </div>
+    <>
+      <HeroSlider/>
+      <NewsHomepage/>
+    </>
   );
 };
 
