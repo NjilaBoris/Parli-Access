@@ -8,6 +8,7 @@ import {
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Nav";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full">
           <Navbar />
           {children}
+          <Footer/>
       </body>
     </html>
   );
