@@ -228,7 +228,7 @@ function TrendingAuthors({ authors }: TrendingAuthorsProps) {
 export default function NewsHomepage() {
   return (
     <div className="w-full bg-white">
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_420px]">
           <HeroArticle article={heroArticle} />
 
