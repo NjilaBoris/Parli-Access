@@ -8,6 +8,7 @@ import Link from "next/link";
 
 
 const NAV_LINKS = [
+  { label: "Home", href: "/" },
   { label: "News & Update", href: "/news" },
   {
     label: "National Assembly",
@@ -33,24 +34,10 @@ const NAV_LINKS = [
   {
     label: "Resources",
     href: "/resources",
-    submenu: [
-      { label: "Standing Orders", href: "/resources/standing-orders" },
-      { label: "Constitution", href: "/resources/constitution" },
-      { label: "Electoral Code", href: "/resources/electoral-code" },
-      {
-        label: "Policy Debrief (briefing series)",
-        href: "/resources/policy-debrief",
-      },
-    ],
   },
   {
     label: "Committees & Network",
     href: "/committees-&-network",
-  },
-  {
-    label: "Members",
-    href: "/members",
-    submenu: [{ label: "Legislative procedure", href: "/members/legislative-procedure" }],
   },
   {
     label: "Multimedia",

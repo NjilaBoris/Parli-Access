@@ -19,15 +19,6 @@ const FOOTER_GROUPS: FooterGroup[] = [
     ],
   },
   {
-    heading: "Resources",
-    links: [
-      { label: "Standing Orders", href: "/resources/standing-orders" },
-      { label: "Constitution", href: "/resources/constitution" },
-      { label: "Electoral Code", href: "/resources/electoral-code" },
-      { label: "Policy Debrief", href: "/resources/policy-debrief" },
-    ],
-  },
-  {
     heading: "Engage & Explore",
     links: [
       { label: "Write to Your MP", href: "/engage/write-to-your-mp" },
@@ -40,6 +31,8 @@ const FOOTER_GROUPS: FooterGroup[] = [
 ];
 
 const SITE_LINKS: FooterLink[] = [
+  { label: "Home", href: "/" },
+  {label: "Resources", href: "/resources"},
   { label: "News & Update", href: "/news" },
   { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about-us" },
@@ -110,7 +103,7 @@ export default function Footer() {
           </div>
 
          
-          <div className="hidden grid-cols-3 gap-8 lg:grid">
+          <div className="hidden grid-cols-2 gap-8 lg:grid">
             {FOOTER_GROUPS.map((group) => (
               <div key={group.heading}>
                 <h3 className="text-[12.5px] font-semibold uppercase tracking-[0.06em] text-white">
