@@ -28,21 +28,6 @@ const FOOTER_GROUPS: FooterGroup[] = [
     ],
   },
   {
-    heading: "Committees & Network",
-    links: [
-      { label: "Committees", href: "/committees-&-parliamentary-network/committees" },
-      {
-        label: "Committee Reports",
-        href: "/committees-&-parliamentary-network/committee-reports",
-      },
-      {
-        label: "Parliamentary Network",
-        href: "/committees-&-parliamentary-network/parliamentary-network",
-      },
-      { label: "Legislative Procedure", href: "/members/legislative-procedure" },
-    ],
-  },
-  {
     heading: "Engage & Explore",
     links: [
       { label: "Write to Your MP", href: "/engage/write-to-your-mp" },
@@ -59,6 +44,7 @@ const SITE_LINKS: FooterLink[] = [
   { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about-us" },
   { label: "Contact Us", href: "/contact-us" },
+  { label: "Committees & Network", href: "/committees-&-network" },
 ];
 
 const LEGAL_LINKS: FooterLink[] = [
@@ -90,7 +76,6 @@ export default function Footer() {
     <footer className="w-full border-t border-white/10 bg-[#151110]">
       <div className="mx-auto max-w-[110rem] px-4 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_2.8fr] lg:gap-14">
-          {/* -------- Brand column -------- */}
           <div>
             <Link href="/" className="inline-block select-none">
               <span className="text-lg font-bold tracking-tight text-white sm:text-xl">
@@ -125,7 +110,7 @@ export default function Footer() {
           </div>
 
          
-          <div className="hidden grid-cols-4 gap-8 lg:grid">
+          <div className="hidden grid-cols-3 gap-8 lg:grid">
             {FOOTER_GROUPS.map((group) => (
               <div key={group.heading}>
                 <h3 className="text-[12.5px] font-semibold uppercase tracking-[0.06em] text-white">

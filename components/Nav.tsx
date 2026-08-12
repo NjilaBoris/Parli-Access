@@ -45,15 +45,7 @@ const NAV_LINKS = [
   },
   {
     label: "Committees & Network",
-    href: "/committees-&-parliamentary-network",
-    submenu: [
-      { label: "Committees", href: "/committees-&-parliamentary-network/committees" },
-      {
-        label: "Committee Reports (searchable archive)",
-        href: "/committees-&-parliamentary-network/committee-reports",
-      },
-      { label: "Parliamentary Network", href: "/committees-&-parliamentary-network/parliamentary-network" },
-    ],
+    href: "/committees-&-network",
   },
   {
     label: "Members",
