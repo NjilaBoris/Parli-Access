@@ -51,7 +51,7 @@ const NAV_LINKS = [
     label: "Engage",
     href: "/engage",
     submenu: [
-      { label: "Write to your MP", href: "/engage/write-to-your-mp" },
+      { label: "Write to your MP", href: "/engage/mp" },
       { label: "Polls", href: "/engage/polls" },
     ],
   },

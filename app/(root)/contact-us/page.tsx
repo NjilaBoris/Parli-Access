@@ -180,7 +180,7 @@ export default function ContactSalesPage() {
                 type="email"
                 value={form.email}
                 onChange={update("email")}
-                placeholder="contact.uixmk@gmail.com"
+                placeholder="contact.youremail.com"
               />
 
               <TextField
@@ -189,7 +189,7 @@ export default function ContactSalesPage() {
                 type="tel"
                 value={form.phone}
                 onChange={update("phone")}
-                placeholder="+5 123 4554 784"
+                placeholder="+237 *** *** ***"
               />
 
               <TextField

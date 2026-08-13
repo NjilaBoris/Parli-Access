@@ -21,7 +21,7 @@ const FOOTER_GROUPS: FooterGroup[] = [
   {
     heading: "Engage & Explore",
     links: [
-      { label: "Write to Your MP", href: "/engage/write-to-your-mp" },
+      { label: "Write to Your MP", href: "/engage/mp" },
       { label: "Polls", href: "/engage/polls" },
       { label: "Podcast", href: "/multimedia/podcast" },
       { label: "Gallery", href: "/multimedia/gallery" },

@@ -2,28 +2,23 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { IconHeartHandshake, IconHospital, IconRecycle, IconSchool } from "@tabler/icons-react";
 
-/* ------------------------------------------------------------------ */
-/*  Poll data — swap freely                                            */
-/* ------------------------------------------------------------------ */
 
 type PollOption = {
   id: string;
-  icon: string;
+  icon: React.ReactNode;
   label: string;
-  accent: string; // badge background
+  accent: string; 
 };
 
 const POLL_OPTIONS: PollOption[] = [
-  { id: "youth-employment", icon: "🎓", label: "Youth employment", accent: "bg-sky-600" },
-  { id: "rural-healthcare", icon: "🏥", label: "Healthcare in rural areas", accent: "bg-rose-600" },
-  { id: "gbv", icon: "🤝", label: "Gender-based violence", accent: "bg-violet-600" },
-  { id: "waste-management", icon: "♻️", label: "Waste management", accent: "bg-emerald-600" },
+  { id: "youth-employment", icon: <IconSchool stroke={2} />, label: "Youth employment", accent: "bg-sky-600" },
+  { id: "rural-healthcare", icon: <IconHospital stroke={2} />, label: "Healthcare in rural areas", accent: "bg-rose-600" },
+  { id: "gbv", icon: <IconHeartHandshake stroke={2} />, label: "Gender-based violence", accent: "bg-violet-600" },
+  { id: "waste-management", icon: <IconRecycle stroke={2} />, label: "Waste management", accent: "bg-emerald-600" },
 ];
 
-/* Every option starts at 0 votes. Replace with real counts fetched
-   from your database/API if you want the poll to load with existing
-   results instead of starting fresh. */
 const INITIAL_VOTES: Record<string, number> = {
   "youth-employment": 0,
   "rural-healthcare": 0,
@@ -31,15 +26,6 @@ const INITIAL_VOTES: Record<string, number> = {
   "waste-management": 0,
 };
 
-/* ------------------------------------------------------------------ */
-/*  Pure function: derive a % for every option from raw vote counts    */
-/* ------------------------------------------------------------------ */
-
-/* A poll with only 1–2 real votes shouldn't show 50/100% bars — that's
-   technically correct but looks broken. MIN_SAMPLE_SIZE acts as a floor
-   for the denominator so early clicks move percentages gradually (e.g.
-   1 vote → 1%) instead of taking over the whole bar. Once real votes
-   pass this floor, percentages become the true proportion again. */
 const MIN_SAMPLE_SIZE = 100;
 
 function calculatePercentages(votes: Record<string, number>): Record<string, number> {
