@@ -25,7 +25,7 @@ const FOOTER_GROUPS: FooterGroup[] = [
       { label: "Polls", href: "/engage/polls" },
       { label: "Podcast", href: "/multimedia/podcast" },
       { label: "Gallery", href: "/multimedia/gallery" },
-      { label: "Parliamentary Dashboard", href: "/parliamentary-dashboard" },
+      { label: "Parliamentary Dashboard", href: "/parli-dashboard" },
     ],
   },
 ];

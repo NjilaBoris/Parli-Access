@@ -312,14 +312,14 @@ export default function WriteToMpPage() {
   };
 
   return (
-    <main className="relative overflow-hidden bg-paper pt-20">
+    <main className="relative overflow-hidden bg-paper lg:pt-20 md:pt-25 pt-8">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-assembly-gold/10 blur-3xl sm:h-96 sm:w-96" />
         <div className="absolute -right-16 top-1/3 h-64 w-64 rounded-full bg-assembly-green/10 blur-3xl sm:h-80 sm:w-80" />
       </div>
 
       <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20 md:py-24 lg:px-10">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_1.05fr] md:gap-10 lg:gap-16">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.05fr] md:gap-10 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

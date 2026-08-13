@@ -55,7 +55,7 @@ const NAV_LINKS = [
       { label: "Polls", href: "/engage/polls" },
     ],
   },
-  { label: "Dashboard", href: "/parliamentary-dashboard" },
+  { label: "Dashboard", href: "/parli-dashboard" },
   { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about-us" },
   { label: "Contact Us", href: "/contact-us" },
