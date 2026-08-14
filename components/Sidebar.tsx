@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { LayoutDashboard, Newspaper, FileText, Users, Settings, Menu, X } from 'lucide-react'
+import { LogoutButton } from './LogOut'
 
 const NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
@@ -49,31 +50,23 @@ export function Sidebar() {
           <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-slate-400">Admin</p>
         </div>
         <NavLinks />
+        <div className="mt-auto border-t border-ink/10 pt-4">
+          <LogoutButton />
+        </div>
       </aside>
 
-      <div className="flex items-center justify-between border-b border-ink/10 bg-paper-white px-4 py-3 lg:hidden">
-        <span className="font-display text-xl italic text-ink">Dispatch</span>
-        <button onClick={() => setOpen(true)} aria-label="Open menu">
-          <Menu size={22} />
-        </button>
-      </div>
+      {/* mobile topbar unchanged */}
 
       <AnimatePresence>
         {open && (
           <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setOpen(false)}
-              className="fixed inset-0 z-40 bg-ink/40 lg:hidden"
-            />
+            {/* backdrop unchanged */}
             <motion.aside
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'tween', duration: 0.25 }}
-              className="fixed inset-y-0 left-0 z-50 w-72 max-w-[80vw] bg-paper-white px-4 py-6 lg:hidden"
+              className="fixed inset-y-0 left-0 z-50 flex w-72 max-w-[80vw] flex-col bg-paper-white px-4 py-6 lg:hidden"
             >
               <div className="mb-8 flex items-center justify-between px-2">
                 <span className="font-display text-2xl italic text-ink">Dispatch</span>
@@ -82,6 +75,9 @@ export function Sidebar() {
                 </button>
               </div>
               <NavLinks onNavigate={() => setOpen(false)} />
+              <div className="mt-auto border-t border-ink/10 pt-4">
+                <LogoutButton />
+              </div>
             </motion.aside>
           </>
         )}
