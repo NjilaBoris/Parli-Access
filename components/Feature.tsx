@@ -2,6 +2,7 @@
 
 import { IconBuildingBank, IconClipboardText, IconMessage, IconUser } from "@tabler/icons-react";
 import { motion, type Variants } from "framer-motion";
+import Link from "next/link";
 
 
 type Feature = {
@@ -10,6 +11,7 @@ type Feature = {
   description: string;
   cta: string;
   bg: string;
+  href: string;
 };
 
 const FEATURES: Feature[] = [
@@ -19,6 +21,7 @@ const FEATURES: Feature[] = [
     description: "Learn how the National Assembly works, its history, structure, and role.",
     cta: "EXPLORE",
     bg: "bg-sky-50",
+    href: "/national-assembly/history"
   },
   {
     icon: <IconUser stroke={2} className="text-neutral-500"/>,
@@ -26,6 +29,7 @@ const FEATURES: Feature[] = [
     description: "Discover your Member of Parliament and learn about your constituency.",
     cta: "SEARCH",
     bg: "bg-amber-50",
+    href: "/engage/mp"
   },
   {
     icon: <IconClipboardText stroke={2} className="text-neutral-500"/>,
@@ -33,6 +37,7 @@ const FEATURES: Feature[] = [
     description: "Stay informed on bills, committees, sittings, and parliamentary updates.",
     cta: "FOLLOW",
     bg: "bg-emerald-50",
+    href: "/blog"
   },
   {
     icon: <IconMessage stroke={2} className="text-neutral-500"/>,
@@ -40,6 +45,7 @@ const FEATURES: Feature[] = [
     description: "Share your views, take part in polls, and write to your representative.",
     cta: "ENGAGE",
     bg: "bg-rose-50",
+    href: "/engage/mp"
   },
 ];
 
@@ -109,12 +115,12 @@ export default function FeatureGrid() {
                 </p>
               </div>
 
-              <a
-                href="#"
+              <Link
+                href={feature.href}
                 className="mt-6 inline-flex w-fit items-center gap-1.5 border-b border-neutral-900/40 pb-0.5 font-mono text-[11px] font-semibold tracking-[0.06em] text-neutral-900 transition-colors hover:border-neutral-900 sm:mt-8 sm:text-[11.5px]"
               >
                 {feature.cta} <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             </motion.article>
           ))}
         </motion.div>

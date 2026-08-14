@@ -189,7 +189,7 @@ export default function ContactSalesPage() {
                 type="tel"
                 value={form.phone}
                 onChange={update("phone")}
-                placeholder="+237 *** *** ***"
+                placeholder="+237 XXX XXX XXX"
               />
 
               <TextField

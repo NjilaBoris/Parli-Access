@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion, type PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 
 export type Slide = {
@@ -168,18 +169,18 @@ export default function HeroSlider({ slides = SLIDES }: { slides?: Slide[] }) {
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3 sm:mt-8">
-              <a
-                href="#explore"
+              <Link
+                href="/national-assembly/history"
                 className="inline-flex items-center gap-2 bg-white px-5 py-3 text-[13px] font-semibold text-neutral-900 transition-colors hover:bg-white/80 hover:text-neutral-900 sm:text-sm"
               >
                 Explore Parliament <span aria-hidden="true">&rarr;</span>
-              </a>
-              <a
-                href="#write-to-mp"
+              </Link>
+              <Link
+                href="/engage/mp"
                 className="inline-flex items-center gap-2 border border-white/70 px-5 py-3 text-[13px] font-semibold text-white transition-colors hover:bg-white hover:text-neutral-900 sm:text-sm"
               >
                 Write to Your MP
-              </a>
+              </Link>
             </div>
           </div>
         </div>

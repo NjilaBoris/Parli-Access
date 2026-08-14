@@ -58,7 +58,7 @@ export default function HeroPortal() {
           className="mt-8 flex w-full flex-col items-center justify-center gap-3 md:flex-row xs:justify-center sm:mt-10 sm:gap-4"
         >
           <a
-            href="/about"
+            href="/about-us"
             className="group inline-flex w-[13rem] items-center justify-center gap-2 rounded-full bg-slate-900 py-3 pl-6 pr-2 text-[clamp(0.85rem,0.8rem+0.15vw,0.95rem)] font-medium text-white shadow-sm transition-colors hover:bg-slate-800 xs:w-auto"
           >
             About Parli Access
@@ -68,7 +68,7 @@ export default function HeroPortal() {
           </a>
 
           <a
-            href="/contact"
+            href="/contact-us"
             className="inline-flex w-[13rem] items-center justify-center rounded-full border border-slate-300 bg-white/70 px-6 py-3 text-[clamp(0.85rem,0.8rem+0.15vw,0.95rem)] font-medium text-slate-900 backdrop-blur-sm transition-colors hover:bg-white xs:w-auto"
           >
             Contact Us
