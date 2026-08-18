@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, Search, User, X as CloseIcon } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 
 const NAV_LINKS = [
@@ -130,9 +131,7 @@ export default function Navbar() {
             onClick={closeDrawer}
             className="absolute left-1/2 -translate-x-1/2 select-none"
           >
-            <span className="text-[15px] font-bold tracking-tight text-white xs:text-base sm:text-xl md:text-2xl">
-              PARLI ACCESS
-            </span>
+            <Image src="/parliicon.svg" alt="PARLI ACCESS" className="h-18 w-auto object-contain lg:h-20" width={100} height={105} />
           </Link>
           <div className="flex items-center gap-2.5 sm:gap-4">
             <a
@@ -207,7 +206,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     className={`lg:flex items-center hidden gap-1 py-1 text-[11.5px] transition-colors xs:text-xs sm:text-[13px] lg:text-[13.5px] ${
-                      active ? "text-white" : "text-[#c9c2bd] hover:text-white"
+                      active ? "text-[#26A3DB]" : "text-[#c9c2bd] hover:text-white"
                     }`}
                   >
                     {link.label}
@@ -224,7 +223,7 @@ export default function Navbar() {
                     <motion.span
                       layoutId="nav-underline"
                       transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                      className="absolute -bottom-[13px] left-0 right-0 h-[2px] bg-white sm:-bottom-[14px]"
+                      className="absolute -bottom-[13px] left-0 right-0 h-[2px] bg-[#26A3DB] sm:-bottom-[14px]"
                     />
                   )}
 
@@ -286,9 +285,13 @@ export default function Navbar() {
               className="fixed inset-y-0 left-0 z-50 flex w-[86vw] max-w-sm flex-col bg-[#151110] shadow-2xl sm:w-96"
             >
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-                <span className="text-base font-bold tracking-tight text-white sm:text-lg">
-                  PARLI ACCESS
-                </span>
+                 <Link
+            href="/"
+            onClick={closeDrawer}
+            className="absolute left-1/2 -translate-x-1/2 select-none"
+          >
+            <Image src="/parliicon.svg" alt="PARLI ACCESS" className="h-16 w-auto object-contain  lg:h-18" width={100} height={105} />
+          </Link>
                 <button
                   type="button"
                   aria-label="Close menu"

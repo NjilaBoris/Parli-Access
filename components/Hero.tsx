@@ -18,8 +18,8 @@ const SLIDES: Slide[] = [
   { image: "/img4.jpg" },
 ];
 
-const AUTOPLAY_MS = 2000;
-const SWIPE_THRESHOLD = 25;
+const AUTOPLAY_MS = 6000;
+const SWIPE_THRESHOLD = 20;
 
 
 const LEDGER_ROWS = [
@@ -84,7 +84,7 @@ export default function HeroSlider({ slides = SLIDES }: { slides?: Slide[] }) {
   return (
     <section
       className="group relative min-h-[560px] w-full overflow-hidden bg-[#151110] sm:min-h-[620px] md:min-h-[680px] lg:min-h-[746px]"
-      onMouseEnter={() => setPaused(true)}
+      onMouseEnter={() => setPaused(false)}
       onMouseLeave={() => setPaused(false)}
       aria-roledescription="carousel"
       aria-label="Parli Access hero"
@@ -171,13 +171,13 @@ export default function HeroSlider({ slides = SLIDES }: { slides?: Slide[] }) {
             <div className="mt-7 flex flex-wrap gap-3 sm:mt-8">
               <Link
                 href="/national-assembly/history"
-                className="inline-flex items-center gap-2 bg-white px-5 py-3 text-[13px] font-semibold text-neutral-900 transition-colors hover:bg-white/80 hover:text-neutral-900 sm:text-sm"
+                className="inline-flex items-center gap-2 text-white bg-[#26A3DB] px-5 py-3 text-[13px] font-semibold transition-colors hover:bg-[#26A3DB]/80 hover:text-neutral-900 sm:text-sm"
               >
                 Explore Parliament <span aria-hidden="true">&rarr;</span>
               </Link>
               <Link
                 href="/engage/mp"
-                className="inline-flex items-center gap-2 border border-white/70 px-5 py-3 text-[13px] font-semibold text-white transition-colors hover:bg-white hover:text-neutral-900 sm:text-sm"
+                className="inline-flex items-center gap-2 border border-[#26A3DB]/70 px-5 py-3 text-[13px] font-semibold text-white transition-colors hover:bg-[#26A3DB]/80 hover:text-white sm:text-sm"
               >
                 Write to Your MP
               </Link>
@@ -199,7 +199,7 @@ export default function HeroSlider({ slides = SLIDES }: { slides?: Slide[] }) {
             >
               <span
                 className={`h-1.5 rounded-full transition-all duration-300 sm:h-[7px] ${
-                  i === index ? "w-4 bg-emerald-400 sm:w-5" : "w-1.5 bg-white/50 hover:bg-white/75 sm:w-[7px]"
+                  i === index ? "w-4 bg-[#26A3DB] sm:w-5" : "w-1.5 bg-[#26A3DB]/50 hover:bg-white/75 sm:w-[7px]"
                 }`}
               />
             </button>

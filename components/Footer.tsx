@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 
 type FooterLink = { label: string; href: string };
@@ -71,9 +72,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_2.8fr] lg:gap-14">
           <div>
             <Link href="/" className="inline-block select-none">
-              <span className="text-lg font-bold tracking-tight text-white sm:text-xl">
-                PARLI ACCESS
-              </span>
+              <Image src="/parliicon.svg" alt="PARLI ACCESS" className="h-18 w-auto object-contain  lg:h-20" width={100} height={105} />
             </Link>
             <p className="mt-4 max-w-sm text-[13px] leading-relaxed text-[#c9c2bd] sm:text-[13.5px]">
               A civic technology platform bridging citizens and the National Assembly of Cameroon

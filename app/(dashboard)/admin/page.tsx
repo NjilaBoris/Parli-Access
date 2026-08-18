@@ -1,9 +1,17 @@
+import { redirect } from 'next/navigation'
 import { StatsCards } from '@/components/Stat'
 import { createClient } from '@/lib/supabase/server'
 
-
 export default async function AdminDashboardPage() {
   const supabase = await createClient()
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/login')
+  }
 
   const [{ count: blogCount }, { count: newsCount }, { count: userCount }, { count: publishedBlog }] =
     await Promise.all([

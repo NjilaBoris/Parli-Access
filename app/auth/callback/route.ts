@@ -1,3 +1,4 @@
+
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 
@@ -12,6 +13,9 @@ export async function GET(request: Request) {
     if (!error) {
       return NextResponse.redirect(`${origin}${next}`)
     }
+    console.error('Auth callback error:', error.message)
+  } else {
+    console.error('No code param in callback URL')
   }
 
   return NextResponse.redirect(`${origin}/login?error=auth_callback_error`)

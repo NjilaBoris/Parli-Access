@@ -6,7 +6,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const profile = await getCurrentProfile()
 
   return (
-    <div className="min-h-screen bg-paper-white">
+    <div className="min-h-screen bg-neutral-100">
       <Sidebar />
       <div className="lg:pl-64">
         <Topbar profile={profile} />

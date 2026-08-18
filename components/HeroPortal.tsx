@@ -59,17 +59,17 @@ export default function HeroPortal() {
         >
           <a
             href="/about-us"
-            className="group inline-flex w-[13rem] items-center justify-center gap-2 rounded-full bg-slate-900 py-3 pl-6 pr-2 text-[clamp(0.85rem,0.8rem+0.15vw,0.95rem)] font-medium text-white shadow-sm transition-colors hover:bg-slate-800 xs:w-auto"
+            className="group inline-flex w-[13rem] items-center justify-center gap-2 rounded-full bg-[#26A3DB] py-3 pl-6 pr-2 text-[clamp(0.85rem,0.8rem+0.15vw,0.95rem)] font-medium text-white shadow-sm transition-colors hover:bg-[#26A3DB]/80 xs:w-auto"
           >
             About Parli Access
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-500 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-              <ArrowUpRight className="h-4 w-4 text-white" strokeWidth={2.5} />
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <ArrowUpRight className="h-4 w-4 text-[#26A3DB]" strokeWidth={2.5} />
             </span>
           </a>
 
           <a
             href="/contact-us"
-            className="inline-flex w-[13rem] items-center justify-center rounded-full border border-slate-300 bg-white/70 px-6 py-3 text-[clamp(0.85rem,0.8rem+0.15vw,0.95rem)] font-medium text-slate-900 backdrop-blur-sm transition-colors hover:bg-white xs:w-auto"
+            className="inline-flex w-[13rem] items-center justify-center rounded-full border border-[#26A3DB]/70  px-6 py-3 text-[clamp(0.85rem,0.8rem+0.15vw,0.95rem)] font-medium text-black hover:text-white backdrop-blur-sm transition-colors hover:bg-[#26A3DB]/80 xs:w-auto"
           >
             Contact Us
           </a>

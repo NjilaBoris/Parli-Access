@@ -1,4 +1,5 @@
 import { Search, Bell } from 'lucide-react'
+import { LogoutButton } from './LogOut';
 
 export function Topbar({ profile }: { profile: { display_name: string | null; role: string } | null }) {
   return (
@@ -15,15 +16,15 @@ export function Topbar({ profile }: { profile: { display_name: string | null; ro
           <Bell size={18} />
         </button>
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ink font-mono text-xs text-paper-white">
+          <div className="flex h-8 w-8 items-center bg-red-200 justify-center rounded-full bg-ink font-mono text-xs text-paper-white">
             {(profile?.display_name ?? 'A').charAt(0).toUpperCase()}
           </div>
           <div className="text-sm">
-            <p className="font-medium text-ink">{profile?.display_name ?? 'Admin'}</p>
             <p className="font-mono text-[10px] uppercase tracking-wide text-slate-400">
               {profile?.role ?? 'admin'}
             </p>
           </div>
+          <LogoutButton/>
         </div>
       </div>
     </header>
