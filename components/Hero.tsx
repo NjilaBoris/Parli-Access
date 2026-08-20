@@ -12,10 +12,10 @@ export type Slide = {
 };
 
 const SLIDES: Slide[] = [
-  { image: "/img1.jpeg" },
-  { image: "/img2.jpg" },
-  { image: "/img3.jpg" },
-  { image: "/img4.jpg" },
+  { image: "/6.jpg" },
+  { image: "/5.jpg" },
+  { image: "/1.jpg" },
+  { image: "/4.jpg" },
 ];
 
 const AUTOPLAY_MS = 6000;
