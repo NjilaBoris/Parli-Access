@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { LayoutDashboard, Newspaper, FileText, Users, Podcast, Menu, X } from 'lucide-react'
+import { LayoutDashboard, Newspaper, FileText, Users, Podcast, Menu, X, BarChart3 } from 'lucide-react'
 import { LogoutButton } from './LogOut'
 import Image from 'next/image'
 
@@ -13,7 +13,8 @@ const NAV_ITEMS = [
   { href: '/admin/blog', label: 'Blog Posts', icon: FileText },
   { href: '/admin/news', label: 'News Posts', icon: Newspaper },
   { href: '/admin/users', label: 'Users', icon: Users },
-  { href: '/admin/podacast', label: 'Podcast', icon: Podcast },
+  { href: '/admin/podcasts', label: 'Podcast', icon: Podcast },
+  { href: '/admin/polls', label: 'Polls', icon: BarChart3 },
 ]
 
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {

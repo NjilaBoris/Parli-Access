@@ -218,8 +218,7 @@ function validate(form: FormState): FormErrors {
   if (!form.regionId) errors.regionId = "Select your region.";
   if (!form.divisionId) errors.divisionId = "Select your division.";
   if (!form.constituencyId) errors.constituencyId = "Select your constituency.";
-  // mpId is intentionally not required — see the note above the MP select
-  // and in data/cameroon-constituencies.ts on why the directory is empty.
+  
   if (!form.subject.trim()) errors.subject = "Add a subject.";
   if (!form.message.trim()) errors.message = "Write your message.";
   if (!form.email.trim()) {
@@ -292,7 +291,27 @@ export default function WriteToMpPage() {
 
     setStatus("submitting");
     try {
-      await new Promise((resolve) => setTimeout(resolve, 900));
+      const res = await fetch("/api/write-to-mp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          regionId: form.regionId,
+          regionName: region?.name ?? "",
+          divisionId: form.divisionId,
+          divisionName: division?.name ?? "",
+          constituencyId: form.constituencyId,
+          constituencyName: constituency?.name ?? "",
+          mpId: form.mpId || undefined,
+          mpName: mps.find((m) => m.id === form.mpId)?.name,
+          subject: form.subject,
+          message: form.message,
+          email: form.email,
+          phone: form.phone,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+
       setStatus("success");
       setForm(EMPTY_FORM);
     } catch {

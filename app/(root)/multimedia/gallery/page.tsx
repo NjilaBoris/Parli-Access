@@ -19,13 +19,8 @@ interface TeamMember {
   sourceUrl: string; // where clicking the card should go
   accent: Accent;
 }
-
-// Confirmed live path for legislature-10 deputy photos on assnat.cm
-// (verified from the earlier hostname error you hit).
 const SOURCE_BASE = "https://www.assnat.cm/images/photosDepute/legislature10";
 
-// Cycle through the same accent palette the original design used, since
-// deputies.json doesn't carry a color assignment.
 const ACCENT_CYCLE: Accent[] = ["cream", "white", "gradient", "gold", "white"];
 
 const deputies = deputiesData as Deputy[];
@@ -33,10 +28,10 @@ const deputies = deputiesData as Deputy[];
 const team: TeamMember[] = deputies.map((deputy, index) => {
   const imageUrl = `${SOURCE_BASE}/${deputy.image}`;
   return {
-    id: deputy.image, // filename is unique per deputy, safe as a React key
+    id: deputy.image,
     name: deputy.name,
     image: imageUrl,
-    sourceUrl: imageUrl, // click -> source image on assnat.cm
+    sourceUrl: imageUrl,
     accent: ACCENT_CYCLE[index % ACCENT_CYCLE.length],
   };
 });
@@ -81,8 +76,7 @@ const cardVariants: Variants = {
 };
 
 export default function CurrentLegislatureSection() {
-  // Kept for future filtering (e.g. by region/party) if that data is ever
-  // added to deputies.json — currently a no-op since there's only one group.
+ 
   const [activeFilter] = useState<"View all">("View all");
 
   const visibleMembers = activeFilter === "View all" ? team : team;
@@ -101,8 +95,7 @@ export default function CurrentLegislatureSection() {
             Current Legislature
           </h2>
           <p className="mx-auto mt-4 max-w-md text-sm text-slate-500 sm:text-base">
-            Members of the National Assembly of Cameroon. Click a photo to view
-            its source on assnat.cm.
+            Members of the National Assembly of Cameroon.
           </p>
         </motion.div>
 
@@ -118,7 +111,7 @@ export default function CurrentLegislatureSection() {
             {visibleMembers.map((member) => (
               <motion.a
                 key={member.id}
-                href={member.sourceUrl}
+                href={"#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 layout

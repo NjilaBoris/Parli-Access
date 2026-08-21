@@ -1,16 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { IconHeartHandshake, IconHospital, IconRecycle, IconSchool } from "@tabler/icons-react";
-
 
 type PollOption = {
   id: string;
   icon: React.ReactNode;
   label: string;
-  accent: string; 
+  accent: string;
 };
+
+export async function GET() {
+  console.log("URL present:", !!process.env.NEXT_PUBLIC_SUPABASE_URL);
+  console.log("Key present:", !!process.env.SUPABASE_SERVICE_ROLE_KEY);
+  // ...rest of your code
+}
 
 const POLL_OPTIONS: PollOption[] = [
   { id: "youth-employment", icon: <IconSchool stroke={2} />, label: "Youth employment", accent: "bg-sky-600" },
@@ -27,6 +32,7 @@ const INITIAL_VOTES: Record<string, number> = {
 };
 
 const MIN_SAMPLE_SIZE = 100;
+const DEVICE_ID_KEY = "parli-poll-device-id";
 
 function calculatePercentages(votes: Record<string, number>): Record<string, number> {
   const total = Object.values(votes).reduce((sum, v) => sum + v, 0);
@@ -36,9 +42,21 @@ function calculatePercentages(votes: Record<string, number>): Record<string, num
   );
 }
 
+function getOrCreateDeviceId(): string {
+  if (typeof window === "undefined") return "";
+  let id = localStorage.getItem(DEVICE_ID_KEY);
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem(DEVICE_ID_KEY, id);
+  }
+  return id;
+}
+
 export default function ParliamentPoll() {
   const [votes, setVotes] = useState<Record<string, number>>(INITIAL_VOTES);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isVoting, setIsVoting] = useState(false);
 
   const percentages = useMemo(() => calculatePercentages(votes), [votes]);
 
@@ -47,24 +65,60 @@ export default function ParliamentPoll() {
     [votes],
   );
 
-  function handleVote(id: string) {
-    setVotes((prev) => {
-      // If the user already voted for something else, move their vote.
-      if (selectedId && selectedId !== id) {
-        return {
-          ...prev,
-          [selectedId]: Math.max(0, prev[selectedId] - 1),
-          [id]: prev[id] + 1,
-        };
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadResults() {
+      try {
+        const res = await fetch("/api/poll/results");
+        if (!res.ok) throw new Error("Failed to load poll results");
+        const { options } = await res.json();
+
+        if (isMounted && options) {
+          const nextVotes = Object.fromEntries(
+            options.map((o: { id: string; vote_count: number }) => [o.id, o.vote_count]),
+          );
+          setVotes((prev) => ({ ...prev, ...nextVotes }));
+        }
+      } catch (err) {
+        console.error("Failed to load poll results:", err);
+      } finally {
+        if (isMounted) setIsLoading(false);
       }
-      // First-time vote for this option.
-      if (selectedId !== id) {
-        return { ...prev, [id]: prev[id] + 1 };
-      }
-      // Clicking the same option again does nothing.
-      return prev;
-    });
-    setSelectedId(id);
+    }
+
+    loadResults();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  async function handleVote(id: string) {
+    if (isVoting || selectedId === id) return;
+
+    setIsVoting(true);
+    const deviceId = getOrCreateDeviceId();
+
+    try {
+      const res = await fetch("/api/poll/vote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ deviceId, optionId: id }),
+      });
+
+      if (!res.ok) throw new Error("Vote failed");
+
+      const { votes: updated } = await res.json();
+      const nextVotes = Object.fromEntries(
+        updated.map((o: { id: string; vote_count: number }) => [o.id, o.vote_count]),
+      );
+      setVotes(nextVotes);
+      setSelectedId(id);
+    } catch (err) {
+      console.error("Failed to cast vote:", err);
+    } finally {
+      setIsVoting(false);
+    }
   }
 
   return (
@@ -87,8 +141,9 @@ export default function ParliamentPoll() {
                 key={option.id}
                 type="button"
                 onClick={() => handleVote(option.id)}
+                disabled={isVoting}
                 aria-pressed={isSelected}
-                className={`relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 text-left transition-colors sm:gap-4 sm:p-4 ${
+                className={`relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 text-left transition-colors disabled:cursor-not-allowed disabled:opacity-70 sm:gap-4 sm:p-4 ${
                   isSelected ? "bg-orange-50" : "bg-neutral-100 hover:bg-neutral-200/70"
                 }`}
               >
@@ -129,7 +184,7 @@ export default function ParliamentPoll() {
                     isSelected ? "text-orange-600" : "text-neutral-900"
                   }`}
                 >
-                  {percent}%
+                  {isLoading ? "—" : `${percent}%`}
                 </span>
               </button>
             );
