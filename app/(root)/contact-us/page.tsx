@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from "react";
 import { motion, type Variants } from "framer-motion";
-import { Inter } from "next/font/google";
 
 
 function MailIcon() {
@@ -71,6 +70,8 @@ type FormState = {
   message: string;
 };
 
+type Status = "idle" | "submitting" | "success" | "error";
+
 const EMPTY_FORM: FormState = {
   firstName: "",
   lastName: "",
@@ -82,17 +83,28 @@ const EMPTY_FORM: FormState = {
 
 export default function ContactSalesPage() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
-  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
   const update = (key: keyof FormState) => (value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 900));
-    setSubmitting(false);
-    setForm(EMPTY_FORM);
+    setStatus("submitting");
+    try {
+      const res = await fetch("/api/contact-sales", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+
+      setStatus("success");
+      setForm(EMPTY_FORM);
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -118,7 +130,7 @@ export default function ContactSalesPage() {
               transition={{ delay: 0.08 }}
               className="mt-4 max-w-md text-[clamp(0.9rem,0.84rem+0.25vw,1.05rem)] leading-relaxed text-slate-500 sm:mt-5"
             >
-              We would love to hear from you — whether you have a question, suggestion, partnership proposal, or feedback about Parli Access.
+              We would love to hear from you  whether you have a question, suggestion, partnership proposal, or feedback about Parli Access.
             </motion.p>
 
 
@@ -156,75 +168,97 @@ export default function ContactSalesPage() {
               Contact our sales team
             </h2>
 
-            <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4 sm:mt-6">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <TextField
-                  id="firstName"
-                  label="First name"
-                  value={form.firstName}
-                  onChange={update("firstName")}
-                  placeholder="Johaness Mark"
-                />
-                <TextField
-                  id="lastName"
-                  label="Last name"
-                  value={form.lastName}
-                  onChange={update("lastName")}
-                  placeholder="Parker"
-                />
+            {status === "success" ? (
+              <div role="status" aria-live="polite" className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-5 text-center">
+                <p className="text-[0.95rem] font-medium text-slate-900">Message sent</p>
+                <p className="mt-1.5 text-[0.82rem] leading-relaxed text-slate-500">
+                  Thanks for reaching out  we&apos;ll get back to you shortly.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-4 text-[0.82rem] font-medium text-slate-700 underline underline-offset-4 hover:text-slate-900"
+                >
+                  Send another message
+                </button>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4 sm:mt-6">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <TextField
+                    id="firstName"
+                    label="First name"
+                    value={form.firstName}
+                    onChange={update("firstName")}
+                    placeholder="Johaness Mark"
+                  />
+                  <TextField
+                    id="lastName"
+                    label="Last name"
+                    value={form.lastName}
+                    onChange={update("lastName")}
+                    placeholder="Parker"
+                  />
+                </div>
 
-              <TextField
-                id="email"
-                label="Email address"
-                type="email"
-                value={form.email}
-                onChange={update("email")}
-                placeholder="contact.youremail.com"
-              />
-
-              <TextField
-                id="phone"
-                label="Phone number"
-                type="tel"
-                value={form.phone}
-                onChange={update("phone")}
-                placeholder="+237 XXX XXX XXX"
-              />
-
-              <TextField
-                id="subject"
-                label="Subject"
-                value={form.subject}
-                onChange={update("subject")}
-                placeholder="Subject of your message"
-              />
-
-              <div>
-                <label htmlFor="message" className="block text-[0.72rem] font-medium text-slate-500 sm:text-xs">
-                  Your message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  value={form.message}
-                  onChange={(e) => update("message")(e.target.value)}
-                  placeholder="Tell us more about your project..."
-                  className="mt-1.5 w-full resize-none rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-[clamp(0.85rem,0.8rem+0.15vw,0.95rem)] text-slate-800 placeholder-slate-400 outline-none transition-colors focus:border-slate-400"
+                <TextField
+                  id="email"
+                  label="Email address"
+                  type="email"
+                  value={form.email}
+                  onChange={update("email")}
+                  placeholder="contact.youremail.com"
                 />
-              </div>
 
-              <motion.button
-                type="submit"
-                disabled={submitting}
-                whileHover={{ scale: submitting ? 1 : 1.01 }}
-                whileTap={{ scale: submitting ? 1 : 0.98 }}
-                className="mt-1 w-full rounded-lg bg-gradient-to-b from-slate-900 to-[#0B1220] px-6 py-3.5 text-[clamp(0.88rem,0.84rem+0.2vw,1rem)] font-medium text-white transition-opacity disabled:opacity-70 sm:mt-2"
-              >
-                {submitting ? "Sending…" : "Send Message"}
-              </motion.button>
-            </form>
+                <TextField
+                  id="phone"
+                  label="Phone number"
+                  type="tel"
+                  value={form.phone}
+                  onChange={update("phone")}
+                  placeholder="+237 XXX XXX XXX"
+                />
+
+                <TextField
+                  id="subject"
+                  label="Subject"
+                  value={form.subject}
+                  onChange={update("subject")}
+                  placeholder="Subject of your message"
+                />
+
+                <div>
+                  <label htmlFor="message" className="block text-[0.72rem] font-medium text-slate-500 sm:text-xs">
+                    Your message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    value={form.message}
+                    onChange={(e) => update("message")(e.target.value)}
+                    placeholder="Tell us more about your project..."
+                    className="mt-1.5 w-full resize-none rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-[clamp(0.85rem,0.8rem+0.15vw,0.95rem)] text-slate-800 placeholder-slate-400 outline-none transition-colors focus:border-slate-400"
+                  />
+                </div>
+
+                {status === "error" && (
+                  <p role="alert" className="text-[0.82rem] text-red-600">
+                    Something went wrong. Please try again.
+                  </p>
+                )}
+
+                <motion.button
+                  type="submit"
+                  disabled={status === "submitting"}
+                  whileHover={{ scale: status === "submitting" ? 1 : 1.01 }}
+                  whileTap={{ scale: status === "submitting" ? 1 : 0.98 }}
+                  className="mt-1 w-full rounded-lg bg-gradient-to-b from-slate-900 to-[#0B1220] px-6 py-3.5 text-[clamp(0.88rem,0.84rem+0.2vw,1rem)] font-medium text-white transition-opacity disabled:opacity-70 sm:mt-2"
+                >
+                  {status === "submitting" ? "Sending…" : "Send Message"}
+                </motion.button>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>

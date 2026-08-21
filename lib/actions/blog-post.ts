@@ -58,7 +58,6 @@ export async function updateBlogPost(
   if (!user) return { error: 'You must be signed in.' }
 
   const title = (formData.get('title') as string)?.trim()
-  const excerpt = formData.get('excerpt') as string
   const content = (formData.get('content') as string)?.trim()
   const published = formData.get('published') === 'on'
   const coverFile = formData.get('cover') as File
@@ -67,7 +66,6 @@ export async function updateBlogPost(
 
   const updates: Record<string, unknown> = {
     title,
-    excerpt: excerpt || null,
     content: { text: content },
     published,
     updated_at: new Date().toISOString(),
