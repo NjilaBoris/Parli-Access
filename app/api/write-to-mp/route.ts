@@ -9,7 +9,7 @@ const supabase = createClient(
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const NOTIFY_EMAIL = "politicosinfo@gmail.com"; 
+const NOTIFY_EMAIL = "peoplesparliament5@gmail.com"; 
 
 type Payload = {
   regionId: string;
@@ -97,8 +97,7 @@ export async function POST(req: Request) {
       `,
     });
   } catch (emailError) {
-    // Don't fail the request if only the email step fails —
-    // the message is already safely stored in Supabase.
+    
     console.error("Resend error:", emailError);
   }
 
