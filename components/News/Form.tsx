@@ -41,11 +41,6 @@ export function NewsPostForm({ post }: NewsPostFormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="excerpt">Summary</Label>
-        <Input id="excerpt" name="excerpt" defaultValue={post?.excerpt ?? ''} />
-      </div>
-
-      <div className="space-y-2">
         <Label htmlFor="content">Story</Label>
         <Textarea
           id="content"

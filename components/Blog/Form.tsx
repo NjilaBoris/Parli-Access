@@ -36,12 +36,12 @@ export function BlogPostForm({ post }: BlogPostFormProps) {
 
   return (
     <form action={formAction} className="mx-auto max-w-2xl space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="title">Title</Label>
-        <Input id="title" name="title" defaultValue={post?.title} required />
-      </div>
 
       <div className="space-y-2">
+        <div className="space-y-2">
+            <Label htmlFor="title">Title</Label>
+            <Input id="title" name="title" defaultValue={post?.title} required />
+        </div>
         <Label htmlFor="content">Content</Label>
         <Textarea
           id="content"

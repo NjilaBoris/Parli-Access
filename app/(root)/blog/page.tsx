@@ -70,8 +70,8 @@ function NewsHero() {
         >
           <div className="relative aspect-[4/5] w-full xs:aspect-[16/12] sm:aspect-[16/8] lg:aspect-[16/6]">
             <Image
-              src="/news1.jpg"
-              alt="News image"
+              src="/blog1.avif"
+              alt="blog image"
               fill
               priority
               sizes="(min-width: 1024px) 1152px, 100vw"
@@ -90,7 +90,7 @@ function NewsHero() {
                 className="mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur-sm sm:mb-4 sm:px-3.5 sm:text-xs"
               >
                 <Newspaper className="h-3.5 w-3.5" />
-                Latest News &amp; Updates
+                Latest Blog &amp; Updates
               </motion.span>
 
               <motion.h1
@@ -101,7 +101,7 @@ function NewsHero() {
                 className="font-bold leading-[1.05] tracking-tight text-white"
                 style={{ fontSize: "clamp(1.75rem, 1.2rem + 2.5vw, 3.25rem)" }}
               >
-                News
+                Blog
               </motion.h1>
 
               <motion.p
@@ -112,7 +112,7 @@ function NewsHero() {
                 className="mt-2 max-w-xl text-white/85 sm:mt-3"
                 style={{ fontSize: "clamp(0.8125rem, 0.75rem + 0.4vw, 1rem)" }}
               >
-                Stay updated with the latest news and developments in politics and governance.
+                Stay updated with the latest blogs and developments in politics and governance.
               </motion.p>
             </div>
           </div>
@@ -210,7 +210,7 @@ export default function NewsPage() {
 
     async function load() {
       const { data, error } = await supabase
-        .from("news_posts")
+        .from("blog_posts")
         .select("id, title, slug, cover_image_url, created_at")
         .order("created_at", { ascending: false })
         .limit(3);
@@ -226,7 +226,7 @@ export default function NewsPage() {
           slug: row.slug,
           date: formatDate(row.created_at),
           title: row.title,
-          href: `/news/${row.slug}`,
+          href: `/blog/${row.slug}`,
           image: row.cover_image_url,
         }));
         setItems(mapped);
