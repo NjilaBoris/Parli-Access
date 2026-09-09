@@ -11,12 +11,7 @@ type PollOption = {
   accent: string;
 };
 
-export async function GET() {
-  console.log("URL present:", !!process.env.NEXT_PUBLIC_SUPABASE_URL);
-  console.log("Key present:", !!process.env.SUPABASE_SERVICE_ROLE_KEY);
-  // ...rest of your code
-}
-
+// ids must exactly match poll_options.id in Supabase (see supabase-poll-migration.sql)
 const POLL_OPTIONS: PollOption[] = [
   { id: "youth-employment", icon: <IconSchool stroke={2} />, label: "Youth employment", accent: "bg-sky-600" },
   { id: "rural-healthcare", icon: <IconHospital stroke={2} />, label: "Healthcare in rural areas", accent: "bg-rose-600" },
@@ -106,7 +101,10 @@ export default function ParliamentPoll() {
         body: JSON.stringify({ deviceId, optionId: id }),
       });
 
-      if (!res.ok) throw new Error("Vote failed");
+      if (!res.ok) {
+        const { error } = await res.json().catch(() => ({ error: "Vote failed" }));
+        throw new Error(error ?? "Vote failed");
+      }
 
       const { votes: updated } = await res.json();
       const nextVotes = Object.fromEntries(
