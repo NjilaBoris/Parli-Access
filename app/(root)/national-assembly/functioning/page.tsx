@@ -1,6 +1,8 @@
 "use client";
 
+import PageHero from "@/components/PageHero";
 import { motion, type Variants } from "framer-motion";
+import { FileText } from "lucide-react";
 
 
 interface SessionFact {
@@ -83,40 +85,23 @@ export default function LegislativeProcedure() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
-          className="max-w-2xl"
+          className="max-w-8xl"
         >
-          <motion.div
-            variants={fadeUp}
-            className="mb-5 flex items-center gap-3 text-gray-600 text-[clamp(0.68rem,0.63rem+0.2vw,0.78rem)] uppercase tracking-[0.18em] sm:mb-6"
-          >
-            Legislative operations
-          </motion.div>
-
-          <motion.h2
-            variants={fadeUp}
-            className="text-balance text-[clamp(1.9rem,1.5rem+2vw,3.1rem)] font-semibold leading-[1.1] tracking-tight text-gray-700"
-          >
-            Functioning &amp; procedure
-          </motion.h2>
-
-          <motion.p
-            variants={fadeUp}
-            className="mt-5 text-pretty text-[clamp(0.92rem,0.86rem+0.3vw,1.08rem)] leading-relaxed text-[#1C1B18]/75 sm:mt-6"
-          >
-            The Assembly meets in a statutory ordinary session on the second
-            Tuesday following the proclamation of election results, then
-            holds three ordinary sessions a year, each capped at thirty days.
-          </motion.p>
-
-          <motion.p
-            variants={fadeUp}
-            className="mt-3 text-pretty text-[clamp(0.92rem,0.86rem+0.3vw,1.08rem)] leading-relaxed text-[#1C1B18]/75"
-          >
-            Sittings are held in public, with sittings in camera permitted
-            only exceptionally. Legislative business moves through eight
-            defined stages, from the admissibility of a bill to its enactment
-            by the President of the Republic.
-          </motion.p>
+                      <PageHero
+                      imageSrc="/6.jpg"
+                      imageAlt="Council Departments"
+                      description={
+                                  <>
+                                    The Assembly meets in a statutory ordinary session on the second Tuesday following the proclamation of election results, then holds three ordinary sessions a year, each capped at thirty days.
+                                    <br />
+                                     Sittings are held in public, with sittings in camera permitted only exceptionally. Legislative business moves through eight defined stages, from the admissibility of a bill to its enactment by the President of the Republic.
+                                  </>
+                                    }
+                      title="Functioning &amp; procedure"
+                      priority
+                      badgeIcon={<FileText />}
+                      badgeLabel="Legislative operations"
+                    />
         </motion.div>
         <motion.div
           variants={gridContainer}

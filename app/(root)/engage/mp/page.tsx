@@ -3,6 +3,8 @@
 import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 import { MP, REGIONS } from "@/constant";
+import PageHero from "@/components/PageHero";
+import { FileText } from "lucide-react";
 
 
 function TricolorMark({ className = "" }: { className?: string }) {
@@ -345,25 +347,21 @@ export default function WriteToMpPage() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="md:sticky md:top-16 md:self-start"
           >
-            <div className="flex items-center gap-3">
-              <TricolorMark />
-              <span className="text-[0.6rem] font-semibold uppercase tracking-[0.22em]  sm:text-xs">
-                Write to Parliament
-              </span>
-            </div>
+                                      <PageHero
+                                        imageSrc="/6.jpg"
+                                        imageAlt="Council Departments"
+                                        description=" Select your constituency, find your MP, and make your voice
+                                        heard. You may write about community concerns and development
+                                        priorities, public services and infrastructure, bills and
+                                        proposed legislation, governance and accountability, youth and
+                                        women&apos;s concerns, education and healthcare, or other
+                                        issues of public interest."
+                                        title="Write to your MP"
+                                        priority
+                                        badgeLabel="Write to Parliament"
+                                      />
 
-            <h1 className="mt-5 font-display text-[clamp(2rem,1.5rem+2.4vw,3rem)] font-medium leading-[1.06] tracking-tight  sm:mt-6">
-              Write to your MP
-            </h1>
 
-            <p className="mt-5 max-w-prose text-[clamp(0.95rem,0.9rem+0.3vw,1rem)] leading-relaxed text-ink/75 sm:mt-6">
-              Select your constituency, find your MP, and make your voice
-              heard. You may write about community concerns and development
-              priorities, public services and infrastructure, bills and
-              proposed legislation, governance and accountability, youth and
-              women&apos;s concerns, education and healthcare, or other
-              issues of public interest.
-            </p>
 
             <motion.ul
               initial="hidden"

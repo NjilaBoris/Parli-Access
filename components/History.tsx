@@ -2,6 +2,8 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import PageHero from "./PageHero";
+import { FileText } from "lucide-react";
 
 interface HistoryEvent {
   id: string;
@@ -115,9 +117,7 @@ export default function NationalAssemblyHistory() {
   const spineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section
-      className={` relative w-full overflow-hidden `}
-    >
+    <section className="relative w-full overflow-hidden">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.5]"
         aria-hidden="true"
@@ -129,33 +129,21 @@ export default function NationalAssemblyHistory() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
-          className="max-w-2xl"
+          className="max-w-6xl"
         >
-          <motion.div
-            variants={fadeUp}
-            className="mb-5 flex items-center gap-3 font-[family-name:var(--font-plex-mono)] text-[clamp(0.68rem,0.63rem+0.2vw,0.78rem)] uppercase tracking-[0.18em] text-[#8B1E1E] sm:mb-6"
-          >
-            Historical foundation
-          </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            className="text-balance text-[clamp(2.1rem,1.6rem+2.4vw,3.75rem)] font-semibold leading-[1.08] tracking-tight "
-          >
-            The National Assembly
-          </motion.h1>
-
-          <motion.p
-            variants={fadeUp}
-            className="mt-5 max-w-xl text-pretty text-[clamp(0.95rem,0.88rem+0.35vw,1.15rem)] font-normal leading-relaxed text-[#1C1B18]/75 sm:mt-6"
-          >
-            The oldest institution of the modern Cameroonian state — its
-            foundation, functioning, organization, and composition.
-          </motion.p>
+          <PageHero
+            imageSrc="/6.jpg"
+            imageAlt="Council Departments"
+            description="The oldest institution of the modern Cameroonian state  its foundation, functioning, organization, and composition."
+            title="The National Assembly"
+            priority
+            badgeIcon={<FileText />}
+            badgeLabel=" Historical foundation"
+          />
 
           <motion.div
             variants={fadeUp}
-            className="mt-8 flex items-baseline gap-2 font-[family-name:var(--font-plex-mono)] text-[clamp(0.72rem,0.68rem+0.15vw,0.82rem)] text-[#0B3B2E]/70 sm:mt-10"
+            className="mt-8 flex items-baseline gap-2  text-[clamp(0.72rem,0.68rem+0.15vw,0.82rem)] text-[#0B3B2E]/70 sm:mt-10"
           >
             <span className="text-[clamp(1.4rem,1.2rem+1vw,1.9rem)] font-medium ">
               1946–1996
@@ -163,6 +151,7 @@ export default function NationalAssemblyHistory() {
             <span>· seven constitutional stages, one continuous institution</span>
           </motion.div>
         </motion.div>
+
         <div ref={timelineRef} className="relative mt-14 sm:mt-16 lg:mt-20">
           <div
             className="absolute left-[7px] top-2 bottom-2 w-px bg-[#0B3B2E]/10 sm:left-[calc(6.5rem+7px)]"
@@ -184,7 +173,7 @@ export default function NationalAssemblyHistory() {
                 viewport={{ once: true, amount: 0.5 }}
                 className="relative grid grid-cols-[1rem_1fr] gap-x-5 pl-0 sm:grid-cols-[6.5rem_1rem_1fr] sm:gap-x-6"
               >
-                <div className="hidden pt-[0.3rem] text-right  text-[0.78rem] font-medium tracking-wide  sm:block">
+                <div className="hidden pt-[0.3rem] text-right text-[0.78rem] font-medium tracking-wide sm:block">
                   {event.date}
                 </div>
 
@@ -203,10 +192,8 @@ export default function NationalAssemblyHistory() {
                   </motion.span>
                 </div>
 
-               
                 <div className="pb-1">
-                 
-                  <div className="mb-1.5 flex flex-wrap items-center gap-x-2 gap-y-1  text-[0.7rem] font-medium tracking-wide  sm:hidden">
+                  <div className="mb-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] font-medium tracking-wide sm:hidden">
                     <span>{event.date}</span>
                     <span className="text-[#0B3B2E]/30">·</span>
                     <span className="uppercase tracking-[0.1em] ">
@@ -214,14 +201,14 @@ export default function NationalAssemblyHistory() {
                     </span>
                   </div>
 
-                  <div className="mb-1.5 hidden  text-[0.68rem] font-medium uppercase tracking-[0.14em]  sm:block">
+                  <div className="mb-1.5 hidden text-[0.68rem] font-medium uppercase tracking-[0.14em] sm:block">
                     {event.era}
                   </div>
 
                   <h3 className="text-[clamp(1.05rem,0.98rem+0.35vw,1.3rem)] font-semibold leading-snug ">
                     {event.title}
                     {event.current && (
-                      <span className="ml-2 inline-block translate-y-[-0.05em] rounded-full bg-[#8B1E1E]/10 px-2 py-0.5 align-middle  text-[0.62rem] font-medium uppercase tracking-[0.1em] text-[#8B1E1E]">
+                      <span className="ml-2 inline-block translate-y-[-0.05em] rounded-full bg-[#8B1E1E]/10 px-2 py-0.5 align-middle text-[0.62rem] font-medium uppercase tracking-[0.1em] text-[#8B1E1E]">
                         In force
                       </span>
                     )}

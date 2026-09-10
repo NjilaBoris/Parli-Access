@@ -12,6 +12,8 @@ import {
   Landmark,
   type LucideIcon,
 } from "lucide-react";
+import PageHero from "@/components/PageHero";
+import Image from "next/image";
 
 
 const TOTAL_SEATS = 180;
@@ -20,19 +22,20 @@ const WOMEN_PCT = 33.9;
 
 interface Party {
   name: string;
+  img: string;
   short: string;
   seats: number;
   color: string;
 }
 
 const parties: Party[] = [
-  { name: "Cameroon People's Democratic Movement", short: "CPDM", seats: 152, color: "#0B3B2E" },
-  { name: "National Union for Democracy & Progress", short: "NUDP", seats: 7, color: "#8B1E1E" },
-  { name: "Cameroonian Party for National Reconciliation", short: "PCRN", seats: 5, color: "#B08D57" },
-  { name: "Social Democratic Front", short: "SDF", seats: 5, color: "#6B8577" },
-  { name: "Cameroon Democratic Union", short: "CDU / UDC", seats: 4, color: "#A9825B" },
-  { name: "Union of Socialist Movements", short: "UMS", seats: 4, color: "#7A6A56" },
-  { name: "Cameroon National Salvation Front", short: "FSNC", seats: 3, color: "#9C9284" },
+  { name: "Cameroon People's Democratic Movement", img: "/cpdm.jpg", short: "CPDM", seats: 152, color: "#0B3B2E" },
+  { name: "National Union for Democracy & Progress", img: "/nudp.jpg", short: "NUDP", seats: 7, color: "#8B1E1E" },
+  { name: "Cameroonian Party for National Reconciliation", img: "/p.jpg", short: "PCRN", seats: 5, color: "#B08D57" },
+  { name: "Social Democratic Front", img: "/sdf.png", short: "SDF", seats: 5, color: "#6B8577" },
+  { name: "Cameroon Democratic Union", img: "/cdm.jpg", short: "CDU / UDC", seats: 4, color: "#A9825B" },
+  { name: "Union of Socialist Movements", img: "/cdu.png", short: "UMS", seats: 4, color: "#7A6A56" },
+  { name: "Cameroon National Salvation Front", img: "/cnsf.jpg", short: "FSNC", seats: 3, color: "#9C9284" },
 ];
 
 interface BureauRole {
@@ -247,8 +250,17 @@ function SeatAllocation() {
                 <div className="font-[family-name:var(--font-plex-mono)] text-[0.72rem] font-medium uppercase tracking-[0.08em] text-[#0B3B2E]">
                   {party.short}
                 </div>
-                <div className="truncate text-[0.82rem] text-[#1C1B18]/60">
-                  {party.name}
+                <div className="mt-1 flex min-w-0 items-center gap-2">
+                  <Image
+                    src={party.img}
+                    alt={party.short}
+                    width={20}
+                    height={20}
+                    className="shrink-0 rounded-sm object-cover"
+                  />
+                  <span className="truncate text-[0.82rem] text-[#1C1B18]/60">
+                    {party.name}
+                  </span>
                 </div>
               </div>
             </div>
@@ -337,29 +349,17 @@ export default function ParliamentaryDashboard() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
-          className="max-w-2xl"
+          className="max-w-7xl"
         >
-          <motion.div
-            variants={fadeUp}
-            className="mb-5 flex items-center gap-3  text-[clamp(0.68rem,0.63rem+0.2vw,0.78rem)] uppercase tracking-[0.18em] sm:mb-6"
-          >
-            10th Legislature
-          </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            className="text-balance text-[clamp(2rem,1.5rem+2.3vw,3.5rem)] font-semibold leading-[1.1] tracking-tight"
-          >
-            Parliamentary Dashboard
-          </motion.h1>
-
-          <motion.p
-            variants={fadeUp}
-            className="mt-5 max-w-xl text-pretty text-[clamp(0.95rem,0.88rem+0.35vw,1.15rem)] leading-relaxed text-[#1C1B18]/75 sm:mt-6"
-          >
-            A live-style roll call of the 10th Legislature  composition,
-            gender balance, and the Bureau.
-          </motion.p>
+          <PageHero
+            imageSrc="/6.jpg"
+            imageAlt="Council Departments"
+            description="A live-style roll call of the 10th Legislature  composition,
+             gender balance, and the Bureau."
+            title=" Parliamentary Dashboard"
+            priority
+            badgeLabel=" 10th Legislature"
+          />
         </motion.div>
 
         <div className="mt-12 sm:mt-14">

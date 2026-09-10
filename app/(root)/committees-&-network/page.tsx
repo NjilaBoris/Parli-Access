@@ -14,7 +14,9 @@ import {
   FileSignature,
   Search,
   ArrowUpRight,
+  FileText,
 } from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 const GENERAL_COMMITTEES = [
   {
@@ -129,36 +131,21 @@ export default function CommitteesNetworks() {
   return (
     <main className="min-h-screen text-[#1B2A4A]">
       <section className="relative overflow-hidden border-b border-[#1B2A4A]/10 px-5 pb-14 pt-20 md:pt-24 sm:px-8 sm:pb-16 sm:pt-20 lg:pb-20 lg:pt-42">
+      <div className="max-w-6xl mx-auto">
+                          <PageHero
+                            imageSrc="/6.jpg"
+                            imageAlt="Council Departments"
+                            description="  Nine General Committees oversee legislative scrutiny by domain; twenty-one
+            thematic Parliamentary Networks bring members together across party lines."
+                            title="Committees &amp; Parliamentary Networks"
+                            priority
+                            badgeIcon={<FileText />}
+                            badgeLabel="Office of the National Assembly"
+                          />
+      </div>
+                            
 
         <div className="relative mx-auto max-w-5xl text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-[11px] uppercase tracking-[0.35em]  sm:text-xs"
-          >
-            Office of the National Assembly
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08 }}
-            className="mt-4  text-[clamp(1.9rem,5vw+0.6rem,3.5rem)] font-semibold leading-[1.08] tracking-tight"
-          >
-            Committees &amp; Parliamentary
-            <br className="hidden sm:block" /> Networks
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16 }}
-            className="mx-auto mt-5 max-w-2xl text-[clamp(0.95rem,0.4vw+0.85rem,1.125rem)] leading-relaxed text-[#1B2A4A]/70"
-          >
-            Nine General Committees oversee legislative scrutiny by domain; twenty-one
-            thematic Parliamentary Networks bring members together across party lines.
-          </motion.p>
 
           <motion.div
             initial={{ opacity: 0 }}

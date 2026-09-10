@@ -1,6 +1,9 @@
 "use client";
 
+import CurrentLegislatureSection from "@/components/Legislative";
+import PageHero from "@/components/PageHero";
 import { motion, type Variants } from "framer-motion";
+import { FileText } from "lucide-react";
 
 
 interface Stage {
@@ -61,41 +64,27 @@ export default function LegislativeProcedure() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
-          className="max-w-2xl"
+          className="max-w-8xl"
         >
-          <motion.div
-            variants={fadeUp}
-            className="mb-5 flex items-center gap-3 text-gray-600 text-[clamp(0.68rem,0.63rem+0.2vw,0.78rem)] uppercase tracking-[0.18em] sm:mb-6"
-          >
-            organization
-          </motion.div>
-
-          <motion.h2
-            variants={fadeUp}
-            className="text-balance text-[clamp(1.9rem,1.5rem+2vw,3.1rem)] font-semibold leading-[1.1] tracking-tight text-gray-700"
-          >
-            Institutional organization
-          </motion.h2>
-
-          <motion.p
-            variants={fadeUp}
-            className="mt-5 text-pretty text-[clamp(0.92rem,0.86rem+0.3vw,1.08rem)] leading-relaxed text-[#1C1B18]/75 sm:mt-6"
-          >
-           <span className="font-semibold text-neutral-900">The Bureau</span>   the principal governing body, elected each legislative year: 1 President, 1 Senior Vice President, 5 Vice Presidents, 4 Questors, and 12 Secretaries, with the Secretary General sitting ex officio.
-          </motion.p>
-
-          <motion.p
-            variants={fadeUp}
-            className="mt-3 text-pretty text-[clamp(0.92rem,0.86rem+0.3vw,1.08rem)] leading-relaxed text-[#1C1B18]/75"
-          >
-           <span className="font-semibold text-neutral-900">The Chairmen&apos;s Conference</span> established under Section 39 of Law No. 2014/16, gathering the President, Bureau members, the nine Committee Chairpersons, and Parliamentary Group leaders to set the agenda and rule on bill admissibility.
-          </motion.p>
-          <motion.p
-            variants={fadeUp}
-            className="mt-3 text-pretty text-[clamp(0.92rem,0.86rem+0.3vw,1.08rem)] leading-relaxed text-[#1C1B18]/75"
-          >
-          <span className="font-semibold text-neutral-900">The Secretariat General</span>  administrative continuity under the Secretary General and two Deputy Secretaries General, overseeing legislative affairs, international relations, budget, and documentary information.
-          </motion.p>
+      
+                             <PageHero
+                                imageSrc="/6.jpg"
+                                imageAlt="Council Departments"
+                                  description={
+                                  <>
+                                    <span className="font-semibold text-yellow-400">The Bureau</span> the
+                                    principal governing body, elected each legislative year: 1 President, 1
+                                    Senior Vice President, 5 Vice Presidents, 4 Questors, and 12
+                                    Secretaries, with the Secretary General sitting ex officio.
+                                    <br />
+                                    <span className="font-semibold text-yellow-400">The Chairmen&apos;s Conference</span> established under Section 39 of Law No. 2014/16, gathering the President, Bureau members, the nine Committee Chairpersons, and Parliamentary Group leaders to set the agenda and rule on bill admissibility.
+                                  </>
+                                    }
+                                priority
+                                badgeIcon={<FileText />}
+                                badgeLabel="organization"
+                                title="Institutional organization"
+                              />
         </motion.div>
         <div className="mt-14 sm:mt-16 lg:mt-20">
           <motion.div
@@ -136,6 +125,7 @@ export default function LegislativeProcedure() {
            <h6 className="text-sm mt-4 text-neutral-500">180 members across 49 constituencies representing all ten regions  119 men and 61 women in the current legislature.</h6>
         </div>
       </div>
+      <CurrentLegislatureSection/>
     </section>
   );
 }
