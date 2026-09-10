@@ -79,6 +79,7 @@ function FacebookMark({ className }: { className?: string }) {
   );
 }
 
+
 export default function Navbar() {
   const pathname = usePathname();
 

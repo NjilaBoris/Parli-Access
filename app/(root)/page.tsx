@@ -6,6 +6,7 @@ import HeroPortal from "@/components/HeroPortal";
 
 import PodcastSpotlight from "@/components/Podcast";
 import ParliamentPoll from "@/components/Poll";
+import WhatsAppButton from "@/components/Whatsapp";
 
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
       <PoliticsFeed/>
       <PodcastSpotlight/>
       <HeroPortal/>
+      <WhatsAppButton/>
     </>
   );
 };

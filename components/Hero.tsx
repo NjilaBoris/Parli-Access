@@ -163,7 +163,7 @@ export default function HeroSlider({ slides = SLIDES }: { slides?: Slide[] }) {
             </h1>
 
             <p className="mt-5 max-w-[52ch] text-[13.5px] leading-relaxed text-neutral-300 sm:mt-6 sm:text-[15px] md:text-base">
-              Parli Access makes parliamentary information simple, accessible, and useful &mdash; explore the
+              Parli Access makes parliamentary information simple, accessible, and useful  explore the
               National Assembly, find your representative, follow legislative developments, and take part in
               public affairs.
             </p>
