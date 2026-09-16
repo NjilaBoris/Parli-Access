@@ -53,6 +53,7 @@ export default function ParliamentPoll() {
   const [isLoading, setIsLoading] = useState(true);
   const [isVoting, setIsVoting] = useState(false);
 
+  // still used to size the fill bar proportionally — not displayed as a number anymore
   const percentages = useMemo(() => calculatePercentages(votes), [votes]);
 
   const totalVotes = useMemo(
@@ -110,7 +111,7 @@ export default function ParliamentPoll() {
       if (!res.ok) {
         const { error } = await res.json().catch(() => ({ error: "Vote failed" }));
         if (res.status === 409) {
-          // device already has a vote from an earlier session  reflect that
+          // device already has a vote from an earlier session — reflect that
           setSelectedId(id);
           return;
         }
@@ -172,6 +173,7 @@ export default function ParliamentPoll() {
         <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:gap-3.5">
           {POLL_OPTIONS.map((option) => {
             const percent = percentages[option.id] ?? 0;
+            const voteCount = votes[option.id] ?? 0;
             const isSelected = selectedId === option.id;
 
             return (
@@ -185,7 +187,7 @@ export default function ParliamentPoll() {
                   isSelected ? "bg-orange-50" : "bg-neutral-100 hover:bg-neutral-200/70"
                 }`}
               >
-                
+
                 <motion.div
                   className={`absolute inset-y-0 left-0 ${isSelected ? "bg-orange-100" : "bg-neutral-200"}`}
                   initial={{ width: 0 }}
@@ -193,7 +195,7 @@ export default function ParliamentPoll() {
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 />
 
-            
+
                 {isSelected && (
                   <motion.div
                     layoutId="pollAccentTick"
@@ -203,7 +205,7 @@ export default function ParliamentPoll() {
                   />
                 )}
 
-                
+
                 <span
                   className={`relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-base text-white sm:h-10 sm:w-10 sm:text-lg ${option.accent}`}
                   aria-hidden="true"
@@ -211,18 +213,18 @@ export default function ParliamentPoll() {
                   {option.icon}
                 </span>
 
-                
+
                 <span className="relative z-10 flex-1 truncate text-[13.5px] font-semibold text-neutral-900 sm:text-[15px]">
                   {option.label}
                 </span>
 
-               
+
                 <span
                   className={`relative z-10 shrink-0 font-mono text-sm font-bold sm:text-base ${
                     isSelected ? "text-orange-600" : "text-neutral-900"
                   }`}
                 >
-                  {isLoading ? "—" : `${percent}%`}
+                  {isLoading ? "—" : `${voteCount} vote${voteCount === 1 ? "" : "s"}`}
                 </span>
               </button>
             );
