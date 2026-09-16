@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 
-const WHATSAPP_NUMBER = "237683362966";
-const WHATSAPP_MESSAGE = "Hello ACTA, I'd like to get in touch.";
+const WHATSAPP_NUMBER = "237622080988";
+const WHATSAPP_MESSAGE = "Hello Parli Access, I'd like to get in touch.";
 
 function WhatsAppGlyph({ className }: { className?: string }) {
   return (
