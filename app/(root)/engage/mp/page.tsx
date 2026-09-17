@@ -542,7 +542,7 @@ export default function WriteToMpPage() {
                         disabled={status === "submitting"}
                         whileHover={{ scale: status === "submitting" ? 1 : 1.01 }}
                         whileTap={{ scale: status === "submitting" ? 1 : 0.985 }}
-                        className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3.5 text-[clamp(0.9rem,0.86rem+0.2vw,1rem)] font-medium text-paper transition-opacity disabled:opacity-60"
+                        className="mt-1 inline-flex bg-[#26A3DB] text-white w-full items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3.5 text-[clamp(0.9rem,0.86rem+0.2vw,1rem)] font-medium text-paper transition-opacity disabled:opacity-60"
                       >
                         {status === "submitting" ? "Submitting…" : "Submit Message"}
                       </motion.button>
