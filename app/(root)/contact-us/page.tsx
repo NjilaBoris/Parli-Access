@@ -149,11 +149,11 @@ export default function ContactSalesPage() {
                   For other queries, please get in touch with us via email.
                 </p>
                 <a
-                  href="mailto:politicosinfo@gmail.com"
+                  href="mailto:info@parliaccess.org"
                   className="mt-3 flex items-center gap-1.5 text-[0.82rem] font-medium text-slate-700 hover:text-slate-900 sm:text-sm"
                 >
                   <MailIcon />
-                  politicosinfo@gmail.com
+                  info@parliaccess.org
                 </a>
               </div>
             </motion.div>
