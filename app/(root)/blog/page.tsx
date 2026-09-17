@@ -69,13 +69,10 @@ function NewsHero() {
           className="relative mt-4 overflow-hidden rounded-2xl shadow-lg shadow-black/10 sm:mt-6 sm:rounded-3xl"
         >
           <div className="relative aspect-[4/5] w-full xs:aspect-[16/12] sm:aspect-[16/8] lg:aspect-[16/6]">
-            <Image
+            <img
               src="/blog1.avif"
-              alt="blog image"
-              fill
-              priority
-              sizes="(min-width: 1024px) 1152px, 100vw"
-              className="object-cover"
+              alt="Blog image"
+              className="absolute inset-0 h-full w-full object-cover"
             />
 
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" aria-hidden="true" />
@@ -133,14 +130,14 @@ function NewsCard({ item, index }: { item: NewsItem; index: number }) {
       variants={fadeUp}
     >
       <Link href={item.href} className="group block">
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl sm:rounded-2xl">
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 92vw"
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-          />
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-ink/5 sm:rounded-2xl">
+          {item.image ? (
+            <img
+              src={item.image}
+              alt={item.title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            />
+          ) : null}
         </div>
 
         <div className="mt-3 sm:mt-3.5">
