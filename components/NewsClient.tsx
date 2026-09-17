@@ -80,13 +80,11 @@ export default function LatestNewsClient({
               className="group flex flex-col"
             >
               <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-slate-100">
-                <Image
-                  src={article.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                />
+              <img
+              src={article.image}
+              alt={article.title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            />
               </div>
 
               <div className="mt-3 flex items-center gap-1.5 text-[clamp(0.72rem,0.68rem+0.15vw,0.8rem)] sm:mt-4">
