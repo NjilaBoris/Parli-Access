@@ -5,7 +5,6 @@ import {
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-
 const bricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
   subsets: ["latin"],
@@ -14,36 +13,45 @@ const bricolageGrotesque = Bricolage_Grotesque({
 const siteUrl = "https://www.parliaccess.org";
 const siteName = "Parli Access";
 const siteDescription =
-  "Parli Access is a civic technology platform bridging citizens and the National Assembly of Cameroon — explore Parliament, find your MP, follow legislative news, and have your voice heard.";
+  "Parli Access is a civic technology platform bridging citizens and the National Assembly of Cameroon. Explore how Parliament works, find your MP by region and constituency, follow bills, committees and parliamentary news, and write directly to your representative.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Parli Access — Understand Parliament. Know your MP.",
+    default: "Parli Access — Understand Parliament. Know Your MP.",
     template: "%s | Parli Access",
   },
   description: siteDescription,
   keywords: [
     "Cameroon National Assembly",
     "Cameroon Parliament",
+    "Assemblée Nationale du Cameroun",
     "civic technology Cameroon",
     "find your MP Cameroon",
-    "parliamentary transparency",
+    "write to your MP Cameroon",
+    "Cameroon parliamentary committees",
+    "Cameroon members of parliament",
+    "Cameroon constituencies",
+    "parliamentary transparency Cameroon",
+    "Cameroon bills and laws",
     "The People's Parliament",
+    "civic engagement Cameroon",
+    "Cameroon governance",
   ],
   authors: [{ name: "The People's Parliament" }],
   creator: "The People's Parliament",
   publisher: "The People's Parliament",
+  category: "Government & Civic Technology",
   alternates: {
     canonical: "/",
-    // If/when you add a French version, e.g. /fr routes:
+    // Site content notes it will run in English and French — add this once /fr exists:
     // languages: { "en-US": "/", "fr-FR": "/fr" },
   },
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName,
-    title: "Parli Access — Understand Parliament. Know your MP.",
+    title: "Parli Access — Understand Parliament. Know Your MP.",
     description: siteDescription,
     locale: "en_US",
     images: [
@@ -57,10 +65,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Parli Access — Understand Parliament. Know your MP.",
+    title: "Parli Access — Understand Parliament. Know Your MP.",
     description: siteDescription,
     images: ["/og-image.jpg"],
-    // site: "@YourTwitterHandle", // add if you have one
+    // site: "@YourTwitterHandle",
   },
   icons: { icon: "/parliicon.svg" },
   robots: {
@@ -81,7 +89,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0B3B2E", // adjust to your actual brand color
+  themeColor: "#0B3B2E",
 };
 
 const orgJsonLd = {
@@ -91,10 +99,29 @@ const orgJsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/parliicon.svg`,
   description: siteDescription,
+  parentOrganization: {
+    "@type": "Organization",
+    name: "The People's Parliament",
+  },
   sameAs: [
     // "https://x.com/yourhandle",
     // "https://facebook.com/yourpage",
   ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteName,
+  url: siteUrl,
+  inLanguage: ["en", "fr"],
+  publisher: { "@type": "Organization", name: "The People's Parliament" },
+  // Wire this up once an on-site search route exists:
+  // potentialAction: {
+  //   "@type": "SearchAction",
+  //   target: `${siteUrl}/search?q={search_term_string}`,
+  //   "query-input": "required name=search_term_string",
+  // },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -112,6 +139,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </body>
     </html>
