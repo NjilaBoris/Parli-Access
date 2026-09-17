@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, Search, User, X as CloseIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-
+import { DateTime } from "./DateTime";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -29,6 +29,11 @@ const NAV_LINKS = [
         label: "Organization",
         href: "/national-assembly/organization",
         description: "Bureau, secretariat, administrative structure",
+      },
+      {
+        label: "Members of Parliament",
+        href: "/national-assembly/members-of-parliament",
+        description: "Profile and information about current members",
       },
     ],
   },
@@ -61,6 +66,7 @@ const NAV_LINKS = [
   { label: "About Us", href: "/about-us" },
   { label: "Contact Us", href: "/contact-us" },
 ] as const;
+
 
 
 function XMark({ className }: { className?: string }) {
@@ -156,13 +162,7 @@ export default function Navbar() {
 
             <span className="hidden h-4 w-px bg-white/15 xs:block" aria-hidden="true" />
 
-            <button
-              type="button"
-              aria-label="Account"
-              className="flex h-8 w-8 items-center justify-center rounded-full text-[#c9c2bd] transition-colors hover:text-white sm:h-9 sm:w-9"
-            >
-              <User className="h-[18px] w-[18px] sm:h-5 sm:w-5" />
-            </button>
+            <DateTime/>
           </div>
         </div>
         <AnimatePresence>

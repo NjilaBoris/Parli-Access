@@ -17,6 +17,10 @@ const FOOTER_GROUPS: FooterGroup[] = [
       { label: "History of the National Assembly", href: "/national-assembly/history" },
       { label: "Functioning of the National Assembly", href: "/national-assembly/functioning" },
       { label: "Organization", href: "/national-assembly/organization" },
+       {
+        label: "Members of Parliament",
+        href: "/national-assembly/members-of-parliament",
+      },
     ],
   },
   {

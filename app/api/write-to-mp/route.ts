@@ -1,105 +1,165 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
-);
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const NOTIFY_EMAIL = "peoplesparliament5@gmail.com"; 
+// Where submissions land. Set these in your environment (.env.local / hosting
+// provider dashboard). TO_EMAIL can be a comma-separated list.
+const TO_EMAIL = "info@parliaccess.org";
+const FROM_EMAIL =
+  process.env.WRITE_TO_MP_FROM_EMAIL ?? "Write to your MP <noreply@parliaccess.org>";
 
 type Payload = {
-  regionId: string;
-  regionName: string;
-  divisionId: string;
-  divisionName: string;
-  constituencyId: string;
-  constituencyName: string;
+  regionId?: string;
+  regionName?: string;
+  divisionId?: string;
+  divisionName?: string;
+  constituencyId?: string;
+  constituencyName?: string;
   mpId?: string;
   mpName?: string;
-  subject: string;
-  message: string;
-  email: string;
-  phone: string;
+  subject?: string;
+  message?: string;
+  email?: string;
+  phone?: string;
 };
 
-function isValid(body: Partial<Payload>): body is Payload {
-  return Boolean(
-    body.regionId &&
-      body.regionName &&
-      body.divisionId &&
-      body.divisionName &&
-      body.constituencyId &&
-      body.constituencyName &&
-      body.subject?.trim() &&
-      body.message?.trim() &&
-      body.email?.trim() &&
-      body.phone?.trim()
-  );
+function isNonEmpty(v: unknown): v is string {
+  return typeof v === "string" && v.trim().length > 0;
 }
 
-export async function POST(req: Request) {
-  let body: Partial<Payload>;
+function isValidEmail(v: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+
+function isValidPhone(v: string) {
+  return /^[+\d][\d\s]{6,}$/.test(v.trim());
+}
+
+function escapeHtml(v: string) {
+  return v
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+export async function POST(req: NextRequest) {
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not set");
+    return NextResponse.json({ error: "Email is not configured." }, { status: 500 });
+  }
+  if (!TO_EMAIL) {
+    console.error("TO_EMAIL is not set");
+    return NextResponse.json({ error: "Email is not configured." }, { status: 500 });
+  }
+
+  let body: Payload;
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
+    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  if (!isValid(body)) {
-    return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
-  }
-  const { data, error: dbError } = await supabase
-    .from("mp_messages")
-    .insert({
-      region_id: body.regionId,
-      region_name: body.regionName,
-      division_id: body.divisionId,
-      division_name: body.divisionName,
-      constituency_id: body.constituencyId,
-      constituency_name: body.constituencyName,
-      mp_id: body.mpId || null,
-      mp_name: body.mpName || null,
-      subject: body.subject,
-      message: body.message,
-      email: body.email,
-      phone: body.phone,
-    })
-    .select()
-    .single();
+  const {
+    regionId,
+    regionName,
+    divisionId,
+    divisionName,
+    constituencyId,
+    constituencyName,
+    mpId,
+    mpName,
+    subject,
+    message,
+    email,
+    phone,
+  } = body;
 
-  if (dbError) {
-    console.error("Supabase insert error:", dbError);
-    return NextResponse.json({ error: "Could not save your message." }, { status: 500 });
+  // Server-side validation mirrors the client-side rules in the form.
+  const errors: string[] = [];
+  if (!isNonEmpty(regionId)) errors.push("region");
+  if (!isNonEmpty(divisionId)) errors.push("division");
+  if (!isNonEmpty(constituencyId)) errors.push("constituency");
+  if (!isNonEmpty(subject)) errors.push("subject");
+  if (!isNonEmpty(message)) errors.push("message");
+  if (!isNonEmpty(email) || !isValidEmail(email!.trim())) errors.push("email");
+  if (!isNonEmpty(phone) || !isValidPhone(phone!)) errors.push("phone");
+
+  if (errors.length > 0) {
+    return NextResponse.json(
+      { error: "Missing or invalid fields.", fields: errors },
+      { status: 400 }
+    );
   }
+
+  const safe = {
+    regionName: escapeHtml(regionName?.trim() || regionId!.trim()),
+    divisionName: escapeHtml(divisionName?.trim() || divisionId!.trim()),
+    constituencyName: escapeHtml(constituencyName?.trim() || constituencyId!.trim()),
+    mpName: mpName?.trim() ? escapeHtml(mpName.trim()) : null,
+    subject: escapeHtml(subject!.trim()),
+    message: escapeHtml(message!.trim()),
+    email: escapeHtml(email!.trim()),
+    phone: escapeHtml(phone!.trim()),
+  };
+
+  const html = `
+    <div style="font-family: -apple-system, Segoe UI, Roboto, sans-serif; max-width: 560px; margin: 0 auto;">
+      <h2 style="margin-bottom: 4px;">New message: Write to your MP</h2>
+      <p style="color: #555; margin-top: 0;">Subject: <strong>${safe.subject}</strong></p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+        <tbody>
+          <tr><td style="padding: 4px 0; color: #888; width: 140px;">Region</td><td style="padding: 4px 0;">${safe.regionName}</td></tr>
+          <tr><td style="padding: 4px 0; color: #888;">Division</td><td style="padding: 4px 0;">${safe.divisionName}</td></tr>
+          <tr><td style="padding: 4px 0; color: #888;">Constituency</td><td style="padding: 4px 0;">${safe.constituencyName}</td></tr>
+          <tr><td style="padding: 4px 0; color: #888;">MP</td><td style="padding: 4px 0;">${safe.mpName ?? "<em>Not specified</em>"}</td></tr>
+          <tr><td style="padding: 4px 0; color: #888;">Sender email</td><td style="padding: 4px 0;">${safe.email}</td></tr>
+          <tr><td style="padding: 4px 0; color: #888;">Sender phone</td><td style="padding: 4px 0;">${safe.phone}</td></tr>
+        </tbody>
+      </table>
+
+      <div style="background: #f6f6f4; border-radius: 8px; padding: 16px; white-space: pre-wrap; line-height: 1.5;">
+        ${safe.message}
+      </div>
+    </div>
+  `;
+
+  const text = [
+    `New message: Write to your MP`,
+    `Subject: ${subject!.trim()}`,
+    ``,
+    `Region: ${regionName?.trim() || regionId}`,
+    `Division: ${divisionName?.trim() || divisionId}`,
+    `Constituency: ${constituencyName?.trim() || constituencyId}`,
+    `MP: ${mpName?.trim() || "Not specified"}`,
+    `Sender email: ${email!.trim()}`,
+    `Sender phone: ${phone!.trim()}`,
+    ``,
+    `Message:`,
+    message!.trim(),
+  ].join("\n");
 
   try {
-    await resend.emails.send({
-      from: "Parli Access <notifications@parliaccess.org>",
-      to: NOTIFY_EMAIL,
-      replyTo: body.email,
-      subject: `New message to MP: ${body.subject}`,
-      html: `
-        <h2>New "Write to your MP" submission</h2>
-        <p><strong>Region:</strong> ${body.regionName}</p>
-        <p><strong>Division:</strong> ${body.divisionName}</p>
-        <p><strong>Constituency:</strong> ${body.constituencyName}</p>
-        <p><strong>MP:</strong> ${body.mpName || "Not specified"}</p>
-        <p><strong>Subject:</strong> ${body.subject}</p>
-        <p><strong>From:</strong> ${body.email} / ${body.phone}</p>
-        <hr />
-        <p style="white-space: pre-wrap;">${body.message}</p>
-        <hr />
-        <p style="font-size:12px;color:#888;">Record ID: ${data.id}</p>
-      `,
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: TO_EMAIL.split(",").map((s) => s.trim()),
+      replyTo: email!.trim(),
+      subject: `[Write to your MP] ${subject!.trim()}`,
+      html,
+      text,
     });
-  } catch (emailError) {
-    
-    console.error("Resend error:", emailError);
-  }
 
-  return NextResponse.json({ ok: true, id: data.id }, { status: 200 });
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json({ error: "Failed to send message." }, { status: 502 });
+    }
+
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error("Write-to-MP submission failed:", err);
+    return NextResponse.json({ error: "Failed to send message." }, { status: 500 });
+  }
 }
