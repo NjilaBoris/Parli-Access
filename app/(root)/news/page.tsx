@@ -213,7 +213,6 @@ export default function NewsPage() {
         .from("news_posts")
         .select("id, title, slug, cover_image_url, created_at")
         .order("created_at", { ascending: false })
-        .limit(3);
 
       if (cancelled) return;
 
